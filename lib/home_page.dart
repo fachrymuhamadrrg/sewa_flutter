@@ -24,12 +24,12 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // --- BARIS CARI & FAVORIT (VERSI FIX) ---
+// --- BARIS MENU ATAS (SEARCH, FAVORIT, RIWAYAT, AKUN) ---
               Row(
                 children: [
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        // PINDAH KE HALAMAN SEARCH
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const SearchPage()),
@@ -39,31 +39,42 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 45,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
+                          border: Border.all(color: Colors.grey.shade300),
                           borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey.shade50,
                         ),
                         child: const Row(
                           children: [
+                            Icon(Icons.search, color: Colors.grey, size: 20),
+                            SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 'Cari Alat...',
-                                style: TextStyle(color: Colors.grey),
+                                style: TextStyle(color: Colors.grey, fontSize: 13),
                               ),
                             ),
-                            Icon(Icons.search, color: Colors.grey),
                           ],
                         ),
                       ),
                     ),
                   ),
+                  const SizedBox(width: 10),
+                  // Icon Favorit
+                  const Icon(Icons.favorite_border, color: Color(0xFFD8A005), size: 26),
                   const SizedBox(width: 8),
-                  const Icon(Icons.favorite_border, color: Color(0xFFD8A005), size: 30),
-                  const SizedBox(width: 5),
-                  IconButton(
-                    icon: const Icon(Icons.receipt_long, color: Color(0xFF553F01), size: 30),
-                    onPressed: () {
-                      // Aksi riwayat di sini
+                  // Icon Riwayat
+                  const Icon(Icons.receipt_long, color: Color(0xFF553F01), size: 26),
+                  const SizedBox(width: 8),
+                  // TOMBOL AKUN
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
                     },
+                    child: const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Color(0xFFF3D421),
+                      child: Icon(Icons.person, color: Colors.black, size: 20),
+                    ),
                   ),
                 ],
               ),

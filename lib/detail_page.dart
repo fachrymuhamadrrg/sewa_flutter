@@ -4,7 +4,7 @@ class DetailAlatPage extends StatelessWidget {
   final String name;
   final String price;
   final String imageUrl;
-  final String specs; // <--- Ini yang bikin error tadi kalau belum ada
+  final String specs; // 
 
   const DetailAlatPage({
     super.key,
