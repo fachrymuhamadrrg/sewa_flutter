@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
-import 'search_page.dart'; // <--- Pastikan file ini sudah dibuat ya kak
+import 'search_page.dart';
+import 'favorite_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -14,9 +15,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-      ),
+// Buka home_page.dart, cari bagian AppBar dan ganti jadi ini:
+appBar: AppBar(
+  title: const Text(
+    "E-Tool",
+    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+  ),
+  backgroundColor: const Color(0xFFF3D421),
+  elevation: 0,
+  // KOSONGKAN ACTIONS BIAR TIDAK DOBEL DENGAN YANG BAWAH
+  actions: [], 
+),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

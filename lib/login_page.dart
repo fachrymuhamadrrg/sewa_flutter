@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("SELAMAT DATANG", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            const Text("Hai, Ayo mulai!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 40),
             const TextField(decoration: InputDecoration(labelText: "Email/Username", border: OutlineInputBorder())),
             const SizedBox(height: 15),
@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyHomePage(title: 'E-Tool')));
                 },
-                child: const Text("MASUK"),
+                child: const Text("Lanjut"),
               ),
             ),
           ],
