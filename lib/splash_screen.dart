@@ -1,7 +1,7 @@
 // lib/splash_screen.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'login_page.dart'; // <--- Pastikan import login_page
+import 'login_page.dart'; //
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,14 +18,14 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _startLoading();
   }
-
+//lama login screen
   void _startLoading() {
-    Timer.periodic(const Duration(milliseconds: 50), (timer) {
+    Timer.periodic(const Duration(milliseconds: 5), (timer) {
       if (!mounted) return;
       setState(() {
         if (_progressValue >= 1.0) {
           timer.cancel();
-          // PINDAH KE LOGIN DULU, KAK!
+ 
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -45,9 +45,9 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Gunakan try-catch atau placeholder jika asset belum siap
+          
             Image.asset(
-              'assets/image/logo.png', // Sesuaikan nama file ya kak
+              'assets/image/logo.png', 
               width: 200,
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {

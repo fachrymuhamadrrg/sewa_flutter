@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'checkout_page.dart';
+List<Map<String, String>> favoriteItems = [];
 
 class DetailAlatPage extends StatefulWidget {
   final String name;
@@ -19,7 +21,6 @@ class DetailAlatPage extends StatefulWidget {
 }
 
 class _DetailAlatPageState extends State<DetailAlatPage> {
-  // Tambahkan ; di akhir dan perbaiki status awal
   bool isFavorite = false;
 
   @override
@@ -30,20 +31,16 @@ class _DetailAlatPageState extends State<DetailAlatPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Gunakan widget.imageUrl karena datanya ada di class DetailAlatPage
             Image.network(widget.imageUrl, width: double.infinity, height: 250, fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Gunakan widget.name
                   Text(widget.name, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  // Gunakan widget.price
                   Text(widget.price, style: const TextStyle(fontSize: 20, color: Colors.orange, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 24),
-                  
                   const Text("Spesifikasi Teknis", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   const Divider(),
                   const SizedBox(height: 8),
@@ -56,14 +53,14 @@ class _DetailAlatPageState extends State<DetailAlatPage> {
                       border: Border.all(color: Colors.grey[300]!),
                     ),
                     child: Text(
-                      widget.specs, // Gunakan widget.specs
+                      widget.specs,
                       style: const TextStyle(fontSize: 15, height: 1.8),
                     ),
                   ),
                   const SizedBox(height: 32),
-                  
                   Row(
                     children: [
+                      // Tombol Favorit tetap berfungsi normal
                       Container(
                         height: 50,
                         width: 60,
@@ -72,50 +69,61 @@ class _DetailAlatPageState extends State<DetailAlatPage> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: IconButton(
-                          // Ganti icon berdasarkan status klik
                           icon: Icon(
                             isFavorite ? Icons.favorite : Icons.favorite_border, 
                             color: Colors.red
                           ),
-                          onPressed: () {
-                            // Fungsi setState buat refresh tampilan saat diklik
-                            setState(() {
-                              isFavorite = !isFavorite;
-                            });
-                            
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(isFavorite 
-                                  ? "Berhasil ditambahkan ke Favorit!" 
-                                  : "Dihapus dari Favorit"),
-                                duration: const Duration(seconds: 1),
-                              ),
-                            );
-                          },
+
+                            onPressed: () {
+                              setState(() {
+                                isFavorite = !isFavorite; // Mengubah tampilan ikon di layar
+
+                                if (isFavorite) {
+                                  // 1. Fungsi menambah data ke list global agar muncul di FavoritePage
+                                  favoriteItems.add({
+                                    'name': widget.name,
+                                    'price': widget.price,
+                                    'imageUrl': widget.imageUrl,
+                                  });
+                                } else {
+                                  // 2. Fungsi menghapus data dari list global jika batal favorit
+                                  favoriteItems.removeWhere((item) => item['name'] == widget.name);
+                                }
+                              });
+
+                              // 3. Menampilkan notifikasi singkat di bawah layar
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(isFavorite ? "Berhasil disimpan!" : "Dihapus dari favorit"),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                            },
                         ),
                       ),
                       const SizedBox(width: 15),
+                      // Tombol Sewa Sekarang diarahkan ke CheckoutPage
                       Expanded(
-                        child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFF3D421),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFF3D421),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CheckoutPage(
+                                  name: widget.name,
+                                  price: widget.price,
+                                  imageUrl: widget.imageUrl,
+                                ),
                               ),
-                            ),
-                            onPressed: () {
-                              // Logika sewa
-                            },
-                            child: const Text(
-                              "Sewa sekarang",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
+                            );
+                          },
+                          child: const Text(
+                            "Sewa Sekarang", 
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
                           ),
                         ),
                       ),

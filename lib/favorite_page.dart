@@ -1,42 +1,40 @@
 import 'package:flutter/material.dart';
+import 'detail_page.dart'; // Import agar bisa akses favoriteItems
 
-class FavoritePage extends StatelessWidget {
+class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
   @override
+  State<FavoritePage> createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Favorit Saya"),
-        backgroundColor: const Color(0xFFF3D421),
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: 2, // Ini sementara kita isi 2 dulu ya kak buat contoh
-        itemBuilder: (context, index) {
-          return Card(
-            margin: const EdgeInsets.only(bottom: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  "https://via.placeholder.com/150", // Nanti ganti link gambar asli
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              title: Text("Alat Favorit ${index + 1}", style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text("Rp 50.000 / hari", style: TextStyle(color: Colors.orange)),
-              trailing: const Icon(Icons.favorite, color: Colors.red),
-              onTap: () {
-                // Logika buat buka detail dari sini
+      appBar: AppBar(title: const Text("Alat Favorit")),
+      body: favoriteItems.isEmpty
+          ? const Center(child: Text("Belum ada favorit"))
+          : ListView.builder(
+              itemCount: favoriteItems.length,
+              itemBuilder: (context, index) {
+                final item = favoriteItems[index];
+                return ListTile(
+                  leading: Image.network(item['imageUrl']!, width: 50),
+                  title: Text(item['name']!),
+                  subtitle: Text(item['price']!),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      setState(() {
+                        // Menghapus dari list global
+                        favoriteItems.removeAt(index);
+                      });
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
-      ),
     );
   }
 }

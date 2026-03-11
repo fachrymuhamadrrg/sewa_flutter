@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'detail_page.dart';
 import 'search_page.dart';
 import 'favorite_page.dart';
+import 'history_page.dart';
+import 'profile_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -15,17 +17,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-// Buka home_page.dart, cari bagian AppBar dan ganti jadi ini:
-appBar: AppBar(
-  title: const Text(
-    "E-Tool",
-    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-  ),
-  backgroundColor: const Color(0xFFF3D421),
-  elevation: 0,
-  // KOSONGKAN ACTIONS BIAR TIDAK DOBEL DENGAN YANG BAWAH
-  actions: [], 
-),
+      // Buka home_page.dart, cari bagian AppBar dan ganti jadi ini:
+      appBar: AppBar(
+        title: const Text(
+          "E-Tool",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color(0xFFF3D421),
+        elevation: 0,
+        // KOSONGKAN ACTIONS BIAR TIDAK DOBEL DENGAN YANG BAWAH
+        actions: [],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -33,7 +35,7 @@ appBar: AppBar(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // --- BARIS CARI & FAVORIT (VERSI FIX) ---
-// --- BARIS MENU ATAS (SEARCH, FAVORIT, RIWAYAT, AKUN) ---
+              // --- BARIS MENU ATAS (SEARCH, FAVORIT, RIWAYAT, AKUN) ---
               Row(
                 children: [
                   Expanded(
@@ -41,7 +43,9 @@ appBar: AppBar(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const SearchPage()),
+                          MaterialPageRoute(
+                            builder: (context) => const SearchPage(),
+                          ),
                         );
                       },
                       child: Container(
@@ -59,7 +63,10 @@ appBar: AppBar(
                             Expanded(
                               child: Text(
                                 'Cari Alat...',
-                                style: TextStyle(color: Colors.grey, fontSize: 13),
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                           ],
@@ -68,24 +75,57 @@ appBar: AppBar(
                     ),
                   ),
                   const SizedBox(width: 10),
+
                   // Icon Favorit
-                  const Icon(Icons.favorite_border, color: Color(0xFFD8A005), size: 26),
-                  const SizedBox(width: 8),
-                  // Icon Riwayat
-                  const Icon(Icons.receipt_long, color: Color(0xFF553F01), size: 26),
-                  const SizedBox(width: 8),
-                  // TOMBOL AKUN
                   GestureDetector(
                     onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+                      // Karena Anda sudah import favorite_page.dart, kita arahkan ke sana
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FavoritePage(),
+                        ),
+                      );
                     },
-                    child: const CircleAvatar(
-                      radius: 16,
-                      backgroundColor: Color(0xFFF3D421),
-                      child: Icon(Icons.person, color: Colors.black, size: 20),
+                    child: const Icon(
+                      Icons.favorite_border,
+                      color: Color(0xFFD8A005),
+                      size: 26,
                     ),
                   ),
-                ],
+                  const SizedBox(width: 8),
+
+                  // Icon Riwayat
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HistoryPage()),
+                       );
+                      },
+                    child: const Icon(
+                    Icons.receipt_long,
+                    color: Color(0xFF553F01),
+                    size: 26, 
+                    ),
+                      ),
+                  const SizedBox(width: 8),
+                  // icon acount
+                    GestureDetector(
+                      onTap: () {
+                       Navigator.push(
+                          context,
+                           MaterialPageRoute(builder: (context) => const ProfilePage()), // Mengarah ke profile_page.dart
+                         );
+                        },
+                          child: const CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Color(0xFFF3D421),
+                          child: Icon(Icons.person, color: Colors.black, size: 20),
+                      ),
+                    ),
+                  ],
               ),
               const SizedBox(height: 25),
               const Text(
@@ -93,26 +133,26 @@ appBar: AppBar(
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 15),
-              
+
               // Memanggil Daftar Alat
-// Update Daftar Alat dengan Spesifikasi Teknis
+              // Update Daftar Alat dengan Spesifikasi Teknis
               _buildToolItem(
-                "Mesin Molen Beton", 
-                "Rp 150.000 / hari", 
+                "Mesin Molen Beton",
+                "Rp 150.000 / hari",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDGvsr1gFmVIJTP_wtS30qv-qJ2K5LLBn_lQ&s",
-                "Merek: Tiger\nKapasitas: 500 Liter\nMesin: Dongfeng 8 HP\nBahan Bakar: Solar"
+                "Merek: Tiger\nKapasitas: 500 Liter\nMesin: Dongfeng 8 HP\nBahan Bakar: Solar",
               ),
               _buildToolItem(
-                "Mesin Bor", 
-                "Rp 50.000 / hari", 
+                "Mesin Bor",
+                "Rp 50.000 / hari",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4qBEdYWkBBByPMbPquL70CC2M62muAzEAmQ&s",
-                "Merek: Bosch GSB 550\nDaya: 550 Watt\nKecepatan: 2800 rpm\nFitur: Reversible"
+                "Merek: Bosch GSB 550\nDaya: 550 Watt\nKecepatan: 2800 rpm\nFitur: Reversible",
               ),
               _buildToolItem(
-                "Gergaji Potong", 
-                "Rp 55.000 / hari", 
+                "Gergaji Potong",
+                "Rp 55.000 / hari",
                 "https://tehniq.com/cdn/shop/products/Jual-Mesin-Potong-Gergaji-Kayu-Genggam-Portabe-Maktec-MT583-Circular-Saw_800x_crop_center.jpg?v=1599200764",
-                "Merek: Maktec MT583\nDaya: 1050 Watt\nDiameter Pisau: 185mm\nKecepatan: 4900 rpm"
+                "Merek: Maktec MT583\nDaya: 1050 Watt\nDiameter Pisau: 185mm\nKecepatan: 4900 rpm",
               ),
             ],
           ),
@@ -121,15 +161,20 @@ appBar: AppBar(
     );
   }
 
-Widget _buildToolItem(String name, String price, String imageUrl, String specs) {
+  Widget _buildToolItem(
+    String name,
+    String price,
+    String imageUrl,
+    String specs,
+  ) {
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => DetailAlatPage(
-              name: name, 
-              price: price, 
+              name: name,
+              price: price,
               imageUrl: imageUrl,
               specs: specs, // Kirim spek teknis ke halaman detail
             ),
@@ -149,15 +194,32 @@ Widget _buildToolItem(String name, String price, String imageUrl, String specs) 
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(imageUrl, width: 80, height: 80, fit: BoxFit.cover),
+              child: Image.network(
+                imageUrl,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(width: 15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text(price, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    price,
+                    style: const TextStyle(
+                      color: Colors.orange,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
