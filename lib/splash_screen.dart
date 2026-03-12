@@ -1,7 +1,7 @@
 // lib/splash_screen.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'login_page.dart'; //
+import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,20 +18,20 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _startLoading();
   }
-//lama login screen
+
   void _startLoading() {
-    Timer.periodic(const Duration(milliseconds: 5), (timer) {
+    // Durasi dibuat sedikit lebih manusiawi agar bar-nya terlihat bergerak
+    Timer.periodic(const Duration(milliseconds: 30), (timer) {
       if (!mounted) return;
       setState(() {
         if (_progressValue >= 1.0) {
           timer.cancel();
- 
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const LoginPage()),
           );
         } else {
-          _progressValue += 0.02;
+          _progressValue += 0.02; // Kecepatan loading
         }
       });
     });
@@ -45,25 +45,29 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          
+            // 1. LOGO APLIKASI
             Image.asset(
               'assets/image/logo.png', 
-              width: 200,
+              width: 180, // Ukuran sedikit diperkecil biar estetik
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.broken_image, size: 100, color: Colors.red);
+                return const Icon(Icons.broken_image, size: 100, color: Colors.grey);
               },
             ),
-            const SizedBox(height: 30),
-            const CircularProgressIndicator(color: Color(0xFFF3D421)),
-            const SizedBox(height: 40),
+            
+            const SizedBox(height: 50), // Jarak antara logo dan loading bar
+
+            // 2. LOADING BAR (Linear)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: LinearProgressIndicator(
-                value: _progressValue,
-                backgroundColor: Colors.grey[200],
-                color: const Color(0xFFF3D421),
-                minHeight: 8,
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: ClipRRect( // Biar ujung bar-nya bulat/smooth
+                borderRadius: BorderRadius.circular(10),
+                child: LinearProgressIndicator(
+                  value: _progressValue,
+                  backgroundColor: Colors.grey[200],
+                  color: const Color(0xFFF3D421), // Warna kuning khas aplikasi kak
+                  minHeight: 6,
+                ),
               ),
             ),
           ],

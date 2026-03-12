@@ -50,7 +50,7 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   _buildStatusItem(Icons.payment, "BAYAR"),
                   _buildStatusItem(Icons.local_shipping, "DIKIRIM"),
-                  _buildStatusItem(Icons.star, "NILAI / FAVORIT"),
+                  _buildStatusItem(Icons.star, "NILAI"),
                 ],
               ),
             ),
