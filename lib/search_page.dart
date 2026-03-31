@@ -15,20 +15,30 @@ class _SearchPageState extends State<SearchPage> {
     {
       "name": "Mesin Molen Beton",
       "price": "Rp 150.000 / hari",
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDGvsr1gFmVIJTP_wtS30qv-qJ2K5LLBn_lQ&s",
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDGvsr1gFmVIJTP_wtS30qv-qJ2K5LLBn_lQ&s",
       "specs": "Merek: Tiger\nKapasitas: 500 Liter",
     },
     {
       "name": "Mesin Bor",
       "price": "Rp 50.000 / hari",
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4qBEdYWkBBByPMbPquL70CC2M62muAzEAmQ&s",
+      "image":
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4qBEdYWkBBByPMbPquL70CC2M62muAzEAmQ&s",
       "specs": "Merek: Bosch GSB 550",
     },
     {
       "name": "Gergaji Potong",
       "price": "Rp 55.000 / hari",
-      "image": "https://tehniq.com/cdn/shop/products/Jual-Mesin-Potong-Gergaji-Kayu-Genggam-Portabe-Maktec-MT583-Circular-Saw_800x_crop_center.jpg?v=1599200764",
+      "image":
+          "https://tehniq.com/cdn/shop/products/Jual-Mesin-Potong-Gergaji-Kayu-Genggam-Portabe-Maktec-MT583-Circular-Saw_800x_crop_center.jpg?v=1599200764",
       "specs": "Merek: Maktec MT583",
+    },
+    {
+      "name": "Mesin Las",
+      "price": "Rp 55.000 / hari",
+      "image":
+          "https://harapanutamaindonesia.com/wp-content/uploads/2021/07/Lakoni.jpg",
+      "specs": "Merek: Lakoni",
     },
   ];
 
@@ -38,8 +48,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+
     /// Inisialisasi awal: Menampilkan daftar kosong atau semua data saat halaman dimuat.
-    displayList = []; 
+    displayList = [];
   }
 
   /// Fungsi updateList: Mengimplementasikan logika pemfilteran (filtering logic).
@@ -49,8 +60,10 @@ class _SearchPageState extends State<SearchPage> {
       /// .where() menyaring data berdasarkan kondisi yang diberikan.
       /// .contains() mengecek apakah keyword terdapat dalam nama alat.
       displayList = allTools
-          .where((element) =>
-              element["name"]!.toLowerCase().contains(value.toLowerCase()))
+          .where(
+            (element) =>
+                element["name"]!.toLowerCase().contains(value.toLowerCase()),
+          )
           .toList();
     });
   }
@@ -60,10 +73,12 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 109, 93, 0),
+
         /// Mengintegrasikan TextField ke dalam AppBar untuk antarmuka pencarian yang efisien.
         title: TextField(
           autofocus: true, // Mengaktifkan fokus otomatis pada input teks.
-          onChanged: (value) => updateList(value), // Listener untuk memicu fungsi filtering.
+          onChanged: (value) =>
+              updateList(value), // Listener untuk memicu fungsi filtering.
           style: const TextStyle(color: Color.fromARGB(255, 241, 241, 241)),
           decoration: const InputDecoration(
             hintText: "Cari alat bangunan...",
@@ -78,26 +93,37 @@ class _SearchPageState extends State<SearchPage> {
           Expanded(
             /// Kondisional Rendering: Menampilkan pesan jika data tidak ditemukan atau list kosong.
             child: displayList.isEmpty
-                ? const Center(child: Text("Hasil pencarian akan muncul di sini."))
+                ? const Center(
+                    child: Text("Hasil pencarian akan muncul di sini."),
+                  )
                 : ListView.builder(
                     itemCount: displayList.length,
+
                     /// ListView.builder mengoptimalkan penggunaan memori (Lazy Loading).
                     itemBuilder: (context, index) => ListTile(
                       onTap: () {
                         /// Navigasi ke halaman detail dengan membawa parameter data yang dipilih.
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DetailAlatPage(
-                          name: displayList[index]['name']!,
-                          price: displayList[index]['price']!,
-                          imageUrl: displayList[index]['image']!,
-                          specs: displayList[index]['specs']!,
-                        )));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailAlatPage(
+                              name: displayList[index]['name']!,
+                              price: displayList[index]['price']!,
+                              imageUrl: displayList[index]['image']!,
+                              specs: displayList[index]['specs']!,
+                            ),
+                          ),
+                        );
                       },
                       title: Text(
-                        displayList[index]['name']!, 
-                        style: const TextStyle(fontWeight: FontWeight.bold)
+                        displayList[index]['name']!,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(displayList[index]['price']!),
-                      leading: Image.network(displayList[index]['image']!, width: 50),
+                      leading: Image.network(
+                        displayList[index]['image']!,
+                        width: 50,
+                      ),
                     ),
                   ),
           ),

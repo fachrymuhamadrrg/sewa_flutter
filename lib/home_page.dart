@@ -21,9 +21,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text(
           "E-Tool",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Color(0xFFF3D421),
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: const Color(0xFFF3D421),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         elevation: 0,
         // KOSONGKAN ACTIONS BIAR TIDAK DOBEL DENGAN YANG BAWAH
         actions: [],
@@ -96,36 +99,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(width: 8),
 
                   // Icon Riwayat
-
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HistoryPage()),
-                       );
-                      },
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HistoryPage(),
+                        ),
+                      );
+                    },
                     child: const Icon(
-                    Icons.receipt_long,
-                    color: Color(0xFF553F01),
-                    size: 26, 
+                      Icons.receipt_long,
+                      color: Color(0xFF553F01),
+                      size: 26,
                     ),
-                      ),
+                  ),
                   const SizedBox(width: 8),
                   // icon acount
-                    GestureDetector(
-                      onTap: () {
-                       Navigator.push(
-                          context,
-                           MaterialPageRoute(builder: (context) => const ProfilePage()), // Mengarah ke profile_page.dart
-                         );
-                        },
-                          child: const CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Color(0xFFF3D421),
-                          child: Icon(Icons.person, color: Colors.black, size: 20),
-                      ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProfilePage(),
+                        ), // Mengarah ke profile_page.dart
+                      );
+                    },
+                    child: const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Color(0xFFF3D421),
+                      child: Icon(Icons.person, color: Colors.black, size: 20),
                     ),
-                  ],
+                  ),
+                ],
               ),
               const SizedBox(height: 25),
               const Text(
@@ -153,6 +159,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 "Rp 55.000 / hari",
                 "https://tehniq.com/cdn/shop/products/Jual-Mesin-Potong-Gergaji-Kayu-Genggam-Portabe-Maktec-MT583-Circular-Saw_800x_crop_center.jpg?v=1599200764",
                 "Merek: Maktec MT583\nDaya: 1050 Watt\nDiameter Pisau: 185mm\nKecepatan: 4900 rpm",
+              ),
+              _buildToolItem(
+                "Mesin Las",
+                "Rp 55.000 / hari",
+                "https://harapanutamaindonesia.com/wp-content/uploads/2021/07/Lakoni.jpg",
+                "Merek: Lakoni\nDaya: 1050 Watt\nDiameter Pisau: 185mm\nKecepatan: 4900 rpm",
               ),
             ],
           ),

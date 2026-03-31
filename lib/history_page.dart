@@ -8,11 +8,9 @@ class HistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Riwayat Sewa"),
-        backgroundColor: const Color(0xFF594C03),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
-      body: const Center(
-        child: Text("Belum ada riwayat transaksi."),
-      ),
+      body: const Center(child: Text("Belum ada riwayat transaksi.")),
     );
   }
 }

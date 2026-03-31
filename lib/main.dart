@@ -3,7 +3,7 @@ import 'splash_screen.dart';
 import 'history_page.dart';
 import 'profile_page.dart';
 
-List<Map<String, String>> favoriteItems = [];//item favorit
+List<Map<String, String>> favoriteItems = []; //item favorit
 
 void main() {
   runApp(const MyApp());
