@@ -72,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 109, 93, 0),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
 
         /// Mengintegrasikan TextField ke dalam AppBar untuk antarmuka pencarian yang efisien.
         title: TextField(

@@ -43,7 +43,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           "Detail Sewa",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color.fromARGB(255, 90, 78, 8),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
