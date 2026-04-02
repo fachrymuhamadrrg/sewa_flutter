@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
+import 'checkout_page.dart';
 
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
@@ -60,9 +61,15 @@ class _FavoritePageState extends State<FavoritePage> {
                         ),
                       ),
                       onPressed: () {
-                        // Di sini nanti arahkan ke halaman Checkout/Sewa
-                        print("Menyewa: ${selectedItems.length} alat");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                CheckoutPage(items: selectedItems),
+                          ),
+                        );
                       },
+
                       child: Text("Sewa ${selectedItems.length} Alat Terpilih"),
                     ),
                   ),

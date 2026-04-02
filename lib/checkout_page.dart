@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Import ini wajib untuk format titik
+import 'package:intl/intl.dart';
 
 class CheckoutPage extends StatefulWidget {
-  final String name;
-  final String price;
-  final String imageUrl;
+  final List<Map<String, String>> items;
 
-  const CheckoutPage({
-    super.key,
-    required this.name,
-    required this.price,
-    required this.imageUrl,
-  });
+  const CheckoutPage({super.key, required this.items});
 
   @override
   State<CheckoutPage> createState() => _CheckoutPageState();
@@ -22,20 +15,34 @@ class _CheckoutPageState extends State<CheckoutPage> {
   int jumlah = 1;
   String metodeBayar = 'Transfer Bank';
 
-  /// Fungsi formal untuk format mata uang ke Rupiah dengan pemisah titik
   String formatRupiah(int number) {
-    return NumberFormat.currency(locale: 'id', symbol: 'Rp ', decimalDigits: 0).format(number);
+    return NumberFormat.currency(
+      locale: 'id',
+      symbol: 'Rp ',
+      decimalDigits: 0,
+    ).format(number);
   }
 
-  int get hargaInt => int.parse(widget.price.replaceAll(RegExp(r'[^0-9]'), ''));
+  int get totalHargaAlat {
+    int total = 0;
+    for (var item in widget.items) {
+      String priceStr = item['price'] ?? '0';
+      int hargaInt = int.parse(priceStr.replaceAll(RegExp(r'[^0-9]'), ''));
+      total += hargaInt;
+    }
+    return total;
+  }
 
   @override
   Widget build(BuildContext context) {
-    int total = hargaInt * durasi * jumlah;
+    int totalAkhir = totalHargaAlat * durasi * jumlah;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detail Sewa", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          "Detail Sewa",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color.fromARGB(255, 90, 78, 8),
       ),
       body: SingleChildScrollView(
@@ -43,82 +50,138 @@ class _CheckoutPageState extends State<CheckoutPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- Ringkasan Produk ---
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(widget.imageUrl, width: 80, height: 80, fit: BoxFit.cover),
+            ...widget.items.map((item) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 15.0),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        item['imageUrl'] ?? '',
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item['name'] ?? '',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            item['price'] ?? '',
+                            style: const TextStyle(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 15),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(widget.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text(widget.price, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              );
+            }).toList(),
             const Divider(height: 30),
 
-            // --- Durasi Sewa ---
-            const Text("Durasi Sewa (Hari)", style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              "Durasi Sewa (Hari)",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
                 IconButton(
                   onPressed: () => setState(() => durasi > 1 ? durasi-- : null),
-                  icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+                  icon: const Icon(
+                    Icons.remove_circle_outline,
+                    color: Colors.red,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.shade300),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text("$durasi Hari", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "$durasi Hari",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 IconButton(
                   onPressed: () => setState(() => durasi++),
-                  icon: const Icon(Icons.add_circle_outline, color: Colors.green),
+                  icon: const Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.green,
+                  ),
                 ),
               ],
             ),
 
             const SizedBox(height: 20),
 
-            // --- Jumlah Alat ---
-            const Text("Jumlah Alat", style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              "Jumlah Alat",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
                 IconButton(
                   onPressed: () => setState(() => jumlah > 1 ? jumlah-- : null),
-                  icon: const Icon(Icons.remove_circle_outline, color: Colors.red),
+                  icon: const Icon(
+                    Icons.remove_circle_outline,
+                    color: Colors.red,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.shade300),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text("$jumlah Unit", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "$jumlah Unit",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 IconButton(
                   onPressed: () => setState(() => jumlah++),
-                  icon: const Icon(Icons.add_circle_outline, color: Colors.green),
+                  icon: const Icon(
+                    Icons.add_circle_outline,
+                    color: Colors.green,
+                  ),
                 ),
               ],
             ),
 
-            // GAP FIX: Saya hapus double divider di sini agar jarak ke voucher normal
             const Divider(height: 40),
 
-            // --- Voucher ---
-            const Text("Voucher", style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              "Voucher",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
@@ -127,17 +190,33 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 color: Colors.blue.shade50,
               ),
               child: ListTile(
-                leading: const Icon(Icons.confirmation_number_outlined, color: Colors.blue),
-                title: const Text("Pakai Voucher Diskon", style: TextStyle(fontSize: 14, color: Colors.blue, fontWeight: FontWeight.bold)),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.blue),
+                leading: const Icon(
+                  Icons.confirmation_number_outlined,
+                  color: Colors.blue,
+                ),
+                title: const Text(
+                  "Pakai Voucher Diskon",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                  color: Colors.blue,
+                ),
                 onTap: () {},
               ),
             ),
 
             const SizedBox(height: 25),
 
-            // --- Metode Pembayaran ---
-            const Text("Metode Pembayaran", style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              "Metode Pembayaran",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -149,9 +228,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 child: DropdownButton<String>(
                   value: metodeBayar,
                   isExpanded: true,
-                  items: ['Transfer Bank', 'E-Wallet (Dana/OVO)', 'Bayar di Tempat (COD)']
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
+                  items:
+                      [
+                            'Transfer Bank',
+                            'E-Wallet (Dana/OVO)',
+                            'Bayar di Tempat (COD)',
+                          ]
+                          .map(
+                            (e) => DropdownMenuItem(value: e, child: Text(e)),
+                          )
+                          .toList(),
                   onChanged: (val) => setState(() => metodeBayar = val!),
                 ),
               ),
@@ -159,7 +245,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
             const SizedBox(height: 40),
 
-            // --- Rincian Total (SUDAH PAKAI TITIK) ---
             Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -170,10 +255,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Total Pembayaran", style: TextStyle(fontSize: 16)),
+                  const Text(
+                    "Total Pembayaran",
+                    style: TextStyle(fontSize: 16),
+                  ),
                   Text(
-                    formatRupiah(total), // Memanggil fungsi format titik
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.red),
+                    formatRupiah(totalAkhir),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
                   ),
                 ],
               ),
@@ -187,10 +279,15 @@ class _CheckoutPageState extends State<CheckoutPage> {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFF3D421),
             minimumSize: const Size(double.infinity, 55),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
           onPressed: () {},
-          child: const Text("KONFIRMASI PEMBAYARAN", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          child: const Text(
+            "KONFIRMASI PEMBAYARAN",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
