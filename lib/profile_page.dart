@@ -12,7 +12,10 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings, color: Colors.black)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.settings, color: Colors.black),
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -23,15 +26,28 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 35,
-                    backgroundColor: Colors.grey,
-                    child: Icon(Icons.person, size: 40, color: Colors.white),
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    backgroundImage: const NetworkImage(
+                      'https://ui-avatars.com/api/?name=Fachry+Momo&background=random',
+                    ),
+                    onBackgroundImageError: (exception, stackTrace) {
+                      debugPrint('Gagal memuat gambar: $exception');
+                    },
+                    child: const Icon(
+                      Icons.person,
+                      size: 40,
+                      color: Colors.transparent,
+                    ),
                   ),
                   const SizedBox(width: 15),
                   Text(
-                    "@FACHRYMOMO", // Sesuaikan dengan username kak
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    "FACHRYMOMO", // Sesuaikan dengan username kak
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -66,13 +82,19 @@ class ProfilePage extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF3D421), // Warna kuning khas aplikasi kak
+                    color: const Color(
+                      0xFFF3D421,
+                    ), // Warna kuning khas aplikasi kak
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: const Center(
                     child: Text(
                       "V O U C H E R",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, letterSpacing: 2),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        letterSpacing: 2,
+                      ),
                     ),
                   ),
                 ),
@@ -100,11 +122,7 @@ class ProfilePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildRecBox(),
-                  _buildRecBox(),
-                  _buildRecBox(),
-                ],
+                children: [_buildRecBox(), _buildRecBox(), _buildRecBox()],
               ),
             ),
           ],
@@ -119,7 +137,10 @@ class ProfilePage extends StatelessWidget {
       children: [
         Icon(icon, color: Colors.black54),
         const SizedBox(height: 5),
-        Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+        ),
       ],
     );
   }

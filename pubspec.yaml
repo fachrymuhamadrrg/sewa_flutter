@@ -40,6 +40,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -64,13 +65,13 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-    - assets/image/logo.png
+    - assets/image/amba.png
 
 #ikon
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/image/logo.png"
+  image_path: "assets/image/amba.png"
   min_sdk_android: 21
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/image/logo.png"
+  adaptive_icon_foreground: "assets/image/amba.png"

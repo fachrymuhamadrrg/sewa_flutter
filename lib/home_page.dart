@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // Buka home_page.dart, cari bagian AppBar dan ganti jadi ini:
       appBar: AppBar(
         title: const Text(
-          "E-Tool",
+          "Ambatukang",
           style: TextStyle(
             color: Color(0xFFF3D421),
             fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 25),
               const Text(
-                'Hai, mau sewa apa hari ini?',
+                'Ambaalat yang tersedia',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 15),
