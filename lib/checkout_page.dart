@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CheckoutPage extends StatefulWidget {
-  final List<Map<String, String>> items;
+  final List<Map<String, String>> items; //daftar alat yang akan disewa
 
   const CheckoutPage({super.key, required this.items});
 
@@ -13,14 +13,14 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   int durasi = 1;
   int jumlah = 1;
-  String metodeBayar = 'Transfer Bank';
+  String metodeBayar = 'Transfer Bank'; // lama dan jumlah sewa
 
   String formatRupiah(int number) {
     return NumberFormat.currency(
       locale: 'id',
       symbol: 'Rp ',
       decimalDigits: 0,
-    ).format(number);
+    ).format(number); //pembayaran dengan format rupiah
   }
 
   int get totalHargaAlat {
@@ -28,7 +28,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     for (var item in widget.items) {
       String priceStr = item['price'] ?? '0';
       int hargaInt = int.parse(priceStr.replaceAll(RegExp(r'[^0-9]'), ''));
-      total += hargaInt;
+      total += hargaInt; //penjumlahan harga alat(harga.durasi.jumlah)
     }
     return total;
   }
@@ -51,6 +51,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ...widget.items.map((item) {
+              //mengulangi tampilan alat yang dipilih
               return Padding(
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: Row(
