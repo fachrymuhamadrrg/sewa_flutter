@@ -90,7 +90,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ],
                 ),
               );
-            }).toList(),
+            }),
             const Divider(height: 30),
 
             const Text(

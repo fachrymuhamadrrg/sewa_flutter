@@ -1,4 +1,3 @@
-// lib/splash_screen.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
@@ -11,29 +10,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  double _progressValue = 0.0;
-
   @override
   void initState() {
     super.initState();
-    _startLoading();
+    _navigateToLogin();
   }
 
-  void _startLoading() {
-    // Durasi dibuat sedikit lebih manusiawi agar bar-nya terlihat bergerak
-    Timer.periodic(const Duration(milliseconds: 30), (timer) {
-      if (!mounted) return;
-      setState(() {
-        if (_progressValue >= 1.0) {
-          timer.cancel();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginPage()),
-          );
-        } else {
-          _progressValue += 0.02; // Kecepatan loading
-        }
-      });
+  void _navigateToLogin() {
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
     });
   }
 
@@ -45,35 +33,28 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 1. LOGO APLIKASI
+            // --- UKURAN LOGO DISESUAIKAN AGAR TIDAK TERLALU BESAR ---
             Image.asset(
-              'assets/image/amba.png',
-              width: 180, // Ukuran sedikit diperkecil biar estetik
+              'assets/image/2.png',
+              height: 250,
+              width: 250,
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
-                return const Icon(
-                  Icons.broken_image,
-                  size: 100,
-                  color: Colors.grey,
+                return const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF05412)),
                 );
               },
             ),
 
-            const SizedBox(height: 50), // Jarak antara logo dan loading bar
-            // 2. LOADING BAR (Linear)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              child: ClipRRect(
-                // Biar ujung bar-nya bulat/smooth
-                borderRadius: BorderRadius.circular(10),
-                child: LinearProgressIndicator(
-                  value: _progressValue,
-                  backgroundColor: Colors.grey[200],
-                  color: const Color(
-                    0xFFF3D421,
-                  ), // Warna kuning khas aplikasi kak
-                  minHeight: 6,
-                ),
+            const SizedBox(height: 20), // JARAK ANTARA LOGO DAN TEKS
+            // --- NAMA APLIKASI ---
+            const Text(
+              "KuliKu",
+              style: TextStyle(
+                fontSize: 28, // UKURAN FONT SEDIKIT DIKECILKAN BIAR SERASI
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                letterSpacing: 2.0,
               ),
             ),
           ],

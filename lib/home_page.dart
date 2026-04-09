@@ -1,145 +1,166 @@
 import 'package:flutter/material.dart';
-// IMPORT HALAMAN-HALAMAN TUJUAN UNTUK NAVIGASI (PINDAH LAYAR)
-import 'detail_page.dart';
-import 'search_page.dart';
-import 'favorite_page.dart';
-import 'history_page.dart';
-import 'profile_page.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // --- 1. BAGIAN APPBAR (KEPALA APLIKASI) ---
-      appBar: AppBar(
-        title: const Text(
-          "Ambatukang",
-          style: TextStyle(
-            color: Color(0xFFF3D421), // WARNA KUNING EMAS KHAS AMBATUKANG
-            fontWeight: FontWeight.bold,
+      backgroundColor: Colors.white,
+      // --- BAGIAN NAVIGASI BAWAH (BOTTOM NAVIGATION BAR) ---
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: const Color(
+          0xFFF05412,
+        ), // WARNA ORANYE UNTUK ITEM AKTIF
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: 'Beranda',
           ),
-        ),
-        backgroundColor: Colors.black, // BACKGROUND HITAM BIAR SANGAR
-        elevation: 0, // MENGHILANGKAN BAYANGAN APPBAR
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'Riwayat'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_outlined),
+            label: 'Pengaturan',
+          ),
+        ],
       ),
-
-      // --- 2. BAGIAN UTAMA (BODY) DENGAN SAFEAREA AGAR TIDAK KEPOTONG PONI HP ---
       body: SafeArea(
         child: SingleChildScrollView(
-          // SUPAYA HALAMAN BISA DI-SCROLL KE BAWAH KALAU DAFTARNYA BANYAK
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- 3. BARIS MENU NAVIGASI (SEARCH, FAVORIT, RIWAYAT, PROFIL) ---
+              // --- HEADER: LOKASI, NOTIFIKASI, DAN PROFIL ---
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // EXPANDED MEMBUAT KOTAK SEARCH MENGISI SISA RUANG YANG ADA
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SearchPage(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(Icons.location_on, color: Colors.white, size: 16),
+                        SizedBox(width: 4),
+                        Text(
+                          "Ponorogo, Jawa Timur",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
-                      ),
-                      child: Container(
-                        height: 45,
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey.shade50,
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(Icons.search, color: Colors.grey, size: 20),
-                            SizedBox(width: 8),
-                            Text(
-                              'Cari Alat Tukang...',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 12),
-
-                  // MEMANGGIL FUNGSI ICON NAVIGASI (FAVORIT, RIWAYAT, PROFIL)
-                  _buildNavIcon(
-                    Icons.favorite_border,
-                    const Color(0xFFD8A005),
-                    () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FavoritePage(),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.notifications_none_outlined,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                  ),
-                  _buildNavIcon(
-                    Icons.receipt_long,
-                    const Color(0xFF553F01),
-                    () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HistoryPage(),
+                      const CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(
+                          'https://i.pravatar.cc/150?u=kakak',
+                        ), // FOTO PROFIL
                       ),
-                    ),
-                  ),
-
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ProfilePage(),
-                      ),
-                    ),
-                    child: const CircleAvatar(
-                      radius: 18,
-                      backgroundColor: Color(0xFFF3D421),
-                      child: Icon(Icons.person, color: Colors.black, size: 20),
-                    ),
+                    ],
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
 
-              const SizedBox(height: 30),
+              // --- JUDUL UTAMA ---
               const Text(
-                'KATALOG ALAT TERSEDIA',
+                "Temukan\nAlat Terbaikmu",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // --- KOTAK PENCARIAN (SEARCH BAR) ---
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Cari Alat",
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: Color(0xFFF05412),
+                  ),
+                  suffixIcon: const Icon(
+                    Icons.tune,
+                    color: Colors.black,
+                  ), // IKON FILTER
+                  filled: true,
+                  fillColor: const Color(0xFFF5F5F5),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // --- KATEGORI (HORIZONTAL LIST) ---
+              const SizedBox(height: 25),
+
+              // --- SUBJUDUL DAFTAR TERDEKAT ---
+              const Text(
+                "Alat Terdekat",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 15),
 
-              // --- 4. DAFTAR PRODUK (MEMANGGIL FUNGSI _BUILDTOOLITEM) ---
-              _buildToolItem(
-                "Mesin Molen Beton",
-                "Rp 150.000 / hari",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDGvsr1gFmVIJTP_wtS30qv-qJ2K5LLBn_lQ&s",
-                "Merek: Tiger\nKapasitas: 500 Liter\nMesin: Dongfeng 8 HP",
-              ),
-              _buildToolItem(
-                "Mesin Bor Listrik",
-                "Rp 50.000 / hari",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4qBEdYWkBBByPMbPquL70CC2M62muAzEAmQ&s",
-                "Merek: Bosch GSB 550\nDaya: 550 Watt\nFitur: Reversible",
-              ),
-              _buildToolItem(
-                "Gergaji Mesin",
-                "Rp 55.000 / hari",
-                "https://tehniq.com/cdn/shop/products/Jual-Mesin-Potong-Gergaji-Kayu-Genggam-Portabe-Maktec-MT583-Circular-Saw_800x_crop_center.jpg?v=1599200764",
-                "Merek: Maktec MT583\nDaya: 1050 Watt",
+              // --- GRID DAFTAR PRODUK (ALAT TUKANG) ---
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 15,
+                mainAxisSpacing: 15,
+                childAspectRatio: 0.75,
+                children: [
+                  _buildToolCard(
+                    "Stamper Kuda / Tamping Rammer Compactor",
+                    "Ponorogo",
+                    "Rp 300,000",
+                    "https://image1ws.indotrading.com/s3/productimages/webp/co35493/p251897/w300-h300/65b1da26-c1ea-41ac-8e00-ea71ef59edf5w.jpg",
+                  ),
+                  _buildToolCard(
+                    "Mesin Senso Gergaji Rantai / Chain Saw Machine",
+                    "Ponorogo",
+                    "Rp 150.000",
+                    "https://image1ws.indotrading.com/s3/productimages/webp/co283020/p1663341/w600-h600/57a24e25-1def-4b48-91ad-3b9c3a6d1593.jpg",
+                  ),
+                  _buildToolCard(
+                    "Mesin Pemotong Beton / Concrete Cutter Machine",
+                    "Ponorogo",
+                    "Rp 600,000",
+                    "https://image1ws.indotrading.com/s3/productimages/webp/co170930/p980577/w600-h600/510766d2-1c1b-4018-869d-e058090ed768.jpg",
+                  ),
+                  _buildToolCard(
+                    "Mesin Penghancur Beton / Concrete Breaker",
+                    "Ponorogo",
+                    "Rp 200,000",
+                    "https://image1ws.indotrading.com/s3/productimages/webp/co170930/p1339243/w600-h600/f1eb6d48-9928-4ecb-aebb-f8db0b8d49a7.jpg",
+                  ),
+                ],
               ),
             ],
           ),
@@ -148,93 +169,104 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // --- 5. FUNGSI HELPER UNTUK IKON NAVIGASI ---
-  Widget _buildNavIcon(IconData icon, Color color, VoidCallback onTap) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Icon(icon, color: color, size: 28),
+  // --- WIDGET UNTUK KARTU PRODUK (GRID ITEM) ---
+  Widget _buildToolCard(String name, String loc, String price, String imgUrl) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
-    );
-  }
-
-  // --- 6. FUNGSI HELPER UNTUK MEMBUAT KARTU DAFTAR ALAT (REUSABLE WIDGET) ---
-  Widget _buildToolItem(
-    String name,
-    String price,
-    String imageUrl,
-    String specs,
-  ) {
-    return InkWell(
-      onTap: () {
-        // NAVIGATOR PUSH UNTUK PINDAH KE HALAMAN DETAIL DAN MELEMPARKAN DATA ALAT
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailAlatPage(
-              name: name,
-              price: price,
-              imageUrl: imageUrl,
-              specs: specs,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // GAMBAR PRODUK DENGAN HARGA DAN RATING
+          Expanded(
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    imgUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.check_circle,
+                      color: Colors.blue,
+                      size: 16,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 10,
+                  left: 10,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.6),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "Rp $price/Hari",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 15),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 5,
-            ),
-          ],
-          border: Border.all(color: Colors.grey.shade200),
-        ),
-        child: Row(
-          children: [
-            // CLIPRRECT UNTUK MEMBUAT GAMBAR PRODUK PUNYA SUDUT MELENGKUNG (ROUNDED)
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                imageUrl,
-                width: 70,
-                height: 70,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(width: 15),
-            // INFORMASI TEKS ALAT (NAMA DAN HARGA)
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+          // INFORMASI TEKS DI BAWAH GAMBAR
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    price,
-                    style: const TextStyle(
-                      color: Colors.orange,
-                      fontWeight: FontWeight.bold,
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    const Icon(Icons.location_on, size: 12, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Text(
+                      loc,
+                      style: const TextStyle(color: Colors.grey, fontSize: 11),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
-            const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

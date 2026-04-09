@@ -53,7 +53,7 @@ dev_dependencies:
 #TEMPAT SETELAN SPALSH SCREEN
 flutter_native_splash:
     color: "#ffffff"
-    image: assets/logo.png
+    image: assets/image/2.png
     android: true
     ios: true
     android_gravity: center
@@ -65,13 +65,13 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-    - assets/image/amba.png
+    - assets/image/2.png
 
 #ikon
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/image/amba.png"
+  image_path: "assets/image/2.png"
   min_sdk_android: 21
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/image/amba.png"
+  adaptive_icon_foreground: "assets/image/2.png"
