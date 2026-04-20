@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               const Text(
-                "Sign in to Kuliku",
+                "Silahkan Masuk",
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
