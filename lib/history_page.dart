@@ -17,7 +17,7 @@ class HistoryPage extends StatelessWidget {
             onPressed: () {},
           ),
           title: const Text(
-            "History",
+            "Riwayat",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,

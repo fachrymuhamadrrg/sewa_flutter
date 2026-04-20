@@ -20,7 +20,7 @@ class DetailPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF8F9FA),
       body: CustomScrollView(
         slivers: [
-          // HEADER GAMBAR BESAR
+          
           SliverAppBar(
             expandedHeight: 350,
             pinned: true,
@@ -40,7 +40,7 @@ class DetailPage extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   Image.network(imgUrl, fit: BoxFit.cover),
-                  // Gradient agar gambar tidak polos di bawah
+                  
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -58,7 +58,6 @@ class DetailPage extends StatelessWidget {
             ),
           ),
 
-          // KONTEN DETAIL
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(24.0),
@@ -69,7 +68,7 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Nama dan Lokasi
+                  
                   Text(
                     name,
                     style: const TextStyle(
@@ -98,7 +97,6 @@ class DetailPage extends StatelessWidget {
 
                   const SizedBox(height: 30),
 
-                  // GRID FITUR (Mirip spek mobil)
                   const Text(
                     "Fitur Alat",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -115,7 +113,6 @@ class DetailPage extends StatelessWidget {
 
                   const SizedBox(height: 30),
 
-                  // DESKRIPSI
                   const Text(
                     "Deskripsi",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -132,7 +129,7 @@ class DetailPage extends StatelessWidget {
 
                   const SizedBox(
                     height: 100,
-                  ), // Ruang agar tidak tertutup tombol bottom
+                  ), 
                 ],
               ),
             ),
@@ -140,7 +137,6 @@ class DetailPage extends StatelessWidget {
         ],
       ),
 
-      // TOMBOL FLOATING DI BAWAH
       bottomSheet: Container(
         height: 100,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -198,7 +194,6 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  // Widget helper untuk ikon fitur
   Widget _buildFeatureIcon(IconData icon, String label, String value) {
     return Container(
       width: 100,

@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // 1. Header: Foto Profil & Username
+            
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
@@ -43,7 +43,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(width: 15),
                   Text(
-                    "FACHRYMOMO", // Sesuaikan dengan username kak
+                    "FACHRYMOMO", 
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -53,7 +53,6 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
 
-            // 2. Bar Status: Bayar, Dikirim, Nilai/Favorit
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               padding: const EdgeInsets.symmetric(vertical: 15),
@@ -73,18 +72,17 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 3. Banner Voucher (Bentuk Jajar Genjang/Slanted)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Transform(
-                transform: Matrix4.skewX(-0.1), // Efek miring sesuai sketsa
+                transform: Matrix4.skewX(-0.1), 
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: const Color(
                       0xFFF3D421,
-                    ), // Warna kuning khas aplikasi kak
+                    ), 
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: const Center(
@@ -103,7 +101,6 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 25),
 
-            // 4. Label Rekomendasi
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Align(
@@ -117,7 +114,6 @@ class ProfilePage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // 5. Grid/List Rekomendasi (3 Kotak di bawah)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
@@ -131,7 +127,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // Widget pendukung untuk Bar Status
   Widget _buildStatusItem(IconData icon, String label) {
     return Column(
       children: [
@@ -145,7 +140,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // Widget pendukung untuk Kotak Rekomendasi
   Widget _buildRecBox() {
     return Container(
       width: 100,

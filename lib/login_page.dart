@@ -9,17 +9,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // --- VARIABEL UNTUK MENAMPUNG INPUT DARI PENGGUNA ---
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // --- STATUS UNTUK FITUR PENGINGAT LOGIN ---
   bool _rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // MENGGUNAKAN WARNA LATAR PUTIH BERSIH
+      backgroundColor: Colors.white, 
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -27,18 +26,6 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const SizedBox(height: 80),
 
-              // --- JUDUL UTAMA HALAMAN OTENTIKASI ---
-              const Text(
-                "Sign in to Kuliku ",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 40),
-
-              // --- KOMPONEN INPUT UNTUK ALAMAT EMAIL ---
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -46,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
                   filled: true,
                   fillColor: const Color(
                     0xFFF5F5F5,
-                  ), // WARNA ABU-ABU MUDA UNTUK ESTETIKA
+                  ), 
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide.none,
@@ -56,10 +43,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 15),
 
-              // --- KOMPONEN INPUT UNTUK KATA SANDI ---
               TextField(
                 controller: _passwordController,
-                obscureText: true, // MENYEMBUNYIKAN KARAKTER KATA SANDI
+                obscureText: true, 
                 decoration: InputDecoration(
                   hintText: "Sandi",
                   filled: true,
@@ -77,7 +63,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 15),
 
-              // --- BARIS UNTUK FITUR PENGINGAT DAN LUPA KATA SANDI ---
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -106,7 +91,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 25),
 
-              // --- TOMBOL UTAMA UNTUK PROSES MASUK ---
               SizedBox(
                 width: double.infinity,
                 height: 55,
@@ -120,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(
                       0xFFF05412,
-                    ), // WARNA IDENTITAS ORANYE
+                    ), 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -138,7 +122,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 30),
 
-              // --- KOMPONEN PEMISAH UNTUK PILIHAN LOGIN LAINNYA ---
               const Row(
                 children: [
                   Expanded(child: Divider()),
@@ -154,7 +137,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 30),
 
-              // --- TOMBOL OTENTIKASI MELALUI LAYANAN GOOGLE ---
               Container(
                 width: double.infinity,
                 height: 55,
@@ -179,7 +161,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 15),
 
-              // --- NAVIGASI UNTUK PENGGUNA YANG BELUM MEMILIKI AKUN ---
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

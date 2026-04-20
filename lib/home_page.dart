@@ -150,7 +150,7 @@ class BerandaContent extends StatelessWidget {
                 ),
                 _buildToolCard(
                   context,
-                  "Mesin Senso Gergaji",
+                  "Mesin Gergaji",
                   "Ponorogo",
                   "150.000",
                   "https://image1ws.indotrading.com/s3/productimages/webp/co283020/p1663341/w600-h600/57a24e25-1def-4b48-91ad-3b9c3a6d1593.jpg",
@@ -189,12 +189,8 @@ class BerandaContent extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailPage(
-              name: name,
-              price: price,
-              imgUrl: imgUrl,
-              loc: loc,
-            ),
+            builder: (context) =>
+                DetailPage(name: name, price: price, imgUrl: imgUrl, loc: loc),
           ),
         );
       },

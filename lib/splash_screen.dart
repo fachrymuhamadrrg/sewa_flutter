@@ -33,7 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // --- UKURAN LOGO DISESUAIKAN AGAR TIDAK TERLALU BESAR ---
             Image.asset(
               'assets/image/2.png',
               height: 250,
@@ -45,13 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 );
               },
             ),
-
-            const SizedBox(height: 20), // JARAK ANTARA LOGO DAN TEKS
-            // --- NAMA APLIKASI ---
+            const SizedBox(height: 20),
             const Text(
               "KuliKu",
               style: TextStyle(
-                fontSize: 28, // UKURAN FONT SEDIKIT DIKECILKAN BIAR SERASI
+                fontSize: 28,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
                 letterSpacing: 2.0,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'splash_screen.dart';
 
-List<Map<String, String>> favoriteItems = []; //item favorit
+List<Map<String, String>> favoriteItems = []; 
 
 void main() {
   runApp(const MyApp());
