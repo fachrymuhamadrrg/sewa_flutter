@@ -9,7 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -18,22 +17,43 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, 
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
-              const SizedBox(height: 80),
+              const SizedBox(height: 40),
+              Image.asset(
+                'assets/image/2.png',
+                height: 120,
+                width: 120,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.image_not_supported,
+                    color: Colors.grey,
+                    size: 50,
+                  );
+                },
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                "Sign in to Kuliku",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 40),
 
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   hintText: "Email",
                   filled: true,
-                  fillColor: const Color(
-                    0xFFF5F5F5,
-                  ), 
+                  fillColor: const Color(0xFFF5F5F5),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                     borderSide: BorderSide.none,
@@ -45,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
 
               TextField(
                 controller: _passwordController,
-                obscureText: true, 
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Sandi",
                   filled: true,
@@ -102,9 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(
-                      0xFFF05412,
-                    ), 
+                    backgroundColor: const Color(0xFFF05412),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),

@@ -17,7 +17,7 @@ class HistoryPage extends StatelessWidget {
             onPressed: () {},
           ),
           title: const Text(
-            "Riwayat",
+            "Riwayat Transaksi",
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -62,7 +62,6 @@ class HistoryPage extends StatelessWidget {
           "Penyewaan Alat Ponorogo",
           "Take Away",
           "https://image1ws.indotrading.com/s3/productimages/webp/co35493/p251897/w300-h300/65b1da26-c1ea-41ac-8e00-ea71ef59edf5w.jpg",
-          hasReminder: true,
         ),
         const SizedBox(height: 15),
         _buildHistoryCard(
