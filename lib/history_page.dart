@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'database.dart';
+import 'main.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -14,7 +16,7 @@ class HistoryPage extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {},
+            onPressed: () => Navigator.pop(context),
           ),
           title: const Text(
             "Riwayat Transaksi",
@@ -30,12 +32,12 @@ class HistoryPage extends StatelessWidget {
               onPressed: () {},
             ),
           ],
-          bottom: TabBar(
-            indicatorColor: const Color(0xFFF05412),
-            labelColor: const Color(0xFFF05412),
+          bottom: const TabBar(
+            indicatorColor: Color(0xFFF05412),
+            labelColor: Color(0xFFF05412),
             unselectedLabelColor: Colors.grey,
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            tabs: const [
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            tabs: [
               Tab(text: "Sedang Dipinjam"),
               Tab(text: "Selesai"),
               Tab(text: "Dibatalkan"),
@@ -54,42 +56,56 @@ class HistoryPage extends StatelessWidget {
   }
 
   Widget _buildActiveTab() {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        _buildHistoryCard(
-          "Stamper Kuda",
-          "Penyewaan Alat Ponorogo",
-          "Take Away",
-          "https://image1ws.indotrading.com/s3/productimages/webp/co35493/p251897/w300-h300/65b1da26-c1ea-41ac-8e00-ea71ef59edf5w.jpg",
-        ),
-        const SizedBox(height: 15),
-        _buildHistoryCard(
-          "Mesin Senso",
-          "Penyewaan Alat Ponorogo",
-          "Delivery",
-          "https://image1ws.indotrading.com/s3/productimages/webp/co283020/p1663341/w600-h600/57a24e25-1def-4b48-91ad-3b9c3a6d1593.jpg",
-          hasActionButtons: true,
-        ),
-      ],
+    return StreamBuilder<List<Alat>>(
+      stream: db.select(db.alats).watch(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final listAlat = snapshot.data ?? [];
+
+        if (listAlat.isEmpty) {
+          return const Center(child: Text("Belum ada transaksi aktif"));
+        }
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(20),
+          itemCount: listAlat.length,
+          itemBuilder: (context, index) {
+            final item = listAlat[index];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: _buildHistoryCard(
+                context,
+                item.id,
+                item.name,
+                item.location,
+                "Delivery",
+                item.imageUrl,
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
   Widget _buildHistoryCard(
+    BuildContext context,
+    int id,
     String title,
     String subtitle,
     String tag,
-    String imgUrl, {
-    bool hasReminder = false,
-    bool hasActionButtons = false,
-  }) {
+    String imgUrl,
+  ) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -99,9 +115,7 @@ class HistoryPage extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
-          onTap: () {
-            // Aksi saat di-klik, contoh: navigasi ke halaman detail
-          },
+          onTap: () {},
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -115,6 +129,8 @@ class HistoryPage extends StatelessWidget {
                         width: 60,
                         height: 60,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, size: 60),
                       ),
                     ),
                     const SizedBox(width: 15),
@@ -144,9 +160,7 @@ class HistoryPage extends StatelessWidget {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(
-                                0xFFF05412,
-                              ).withValues(alpha: 0.1),
+                              color: const Color(0xFFF05412).withOpacity(0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -161,66 +175,16 @@ class HistoryPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const Icon(Icons.chevron_right, color: Colors.grey),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline, color: Colors.red),
+                      onPressed: () async {
+                        await (db.delete(
+                          db.alats,
+                        )..where((t) => t.id.equals(id))).go();
+                      },
+                    ),
                   ],
                 ),
-
-                if (hasReminder) ...[
-                  const Divider(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Remind me 30 minutes earlier",
-                        style: TextStyle(fontSize: 13, color: Colors.black87),
-                      ),
-                      Switch(
-                        value: true,
-                        onChanged: (val) {},
-                        activeThumbColor: const Color(0xFF00B686),
-                      ),
-                    ],
-                  ),
-                ],
-
-                if (hasActionButtons) ...[
-                  const Divider(height: 30),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            side: const BorderSide(color: Color(0xFFE0E0E0)),
-                          ),
-                          child: const Text(
-                            "Cancel Order",
-                            style: TextStyle(color: Colors.black54),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF00B686),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: const Text(
-                            "Track Driver",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
               ],
             ),
           ),

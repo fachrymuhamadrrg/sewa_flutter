@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'database.dart';
+import 'main.dart';
 
 class DetailPage extends StatelessWidget {
   final String name;
@@ -20,7 +22,6 @@ class DetailPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF8F9FA),
       body: CustomScrollView(
         slivers: [
-          
           SliverAppBar(
             expandedHeight: 350,
             pinned: true,
@@ -40,7 +41,6 @@ class DetailPage extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   Image.network(imgUrl, fit: BoxFit.cover),
-                  
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -57,7 +57,6 @@ class DetailPage extends StatelessWidget {
               ),
             ),
           ),
-
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(24.0),
@@ -68,7 +67,6 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  
                   Text(
                     name,
                     style: const TextStyle(
@@ -94,9 +92,7 @@ class DetailPage extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 30),
-
                   const Text(
                     "Fitur Alat",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -110,33 +106,27 @@ class DetailPage extends StatelessWidget {
                       _buildFeatureIcon(Icons.shield, "Kondisi", "Prima"),
                     ],
                   ),
-
                   const SizedBox(height: 30),
-
                   const Text(
                     "Deskripsi",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Alat $name ini sangat cocok untuk pengerjaan proyek konstruksi skala menengah hingga besar. Mesin bertenaga dan irit bahan bakar. Perawatan berkala selalu dilakukan untuk memastikan performa tetap stabil di lapangan.",
+                    "Alat $name ini sangat cocok untuk pengerjaan proyek konstruksi skala menengah hingga besar. Mesin bertenaga dan irit bahan bakar.",
                     style: const TextStyle(
                       color: Colors.black54,
                       height: 1.6,
                       fontSize: 15,
                     ),
                   ),
-
-                  const SizedBox(
-                    height: 100,
-                  ), 
+                  const SizedBox(height: 100),
                 ],
               ),
             ),
           ),
         ],
       ),
-
       bottomSheet: Container(
         height: 100,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -169,7 +159,27 @@ class DetailPage extends StatelessWidget {
               ],
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                // EKSEKUSI DRIFT DI SINI
+                await db
+                    .into(db.alats)
+                    .insert(
+                      AlatsCompanion.insert(
+                        name: name,
+                        price: price,
+                        location: loc,
+                        imageUrl: imgUrl,
+                      ),
+                    );
+
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Alat berhasil ditambahkan ke favorit"),
+                    ),
+                  );
+                }
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFF05412),
                 padding: const EdgeInsets.symmetric(
