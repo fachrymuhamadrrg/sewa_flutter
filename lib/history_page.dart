@@ -66,7 +66,7 @@ class HistoryPage extends StatelessWidget {
         const SizedBox(height: 15),
         _buildHistoryCard(
           "Mesin Senso",
-          "Mokopi Kelapa Gading",
+          "Penyewaan Alat Ponorogo",
           "Delivery",
           "https://image1ws.indotrading.com/s3/productimages/webp/co283020/p1663341/w600-h600/57a24e25-1def-4b48-91ad-3b9c3a6d1593.jpg",
           hasActionButtons: true,
