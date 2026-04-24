@@ -1,27 +1,18 @@
-import 'dart:io';
 import 'database.dart';
 import 'package:flutter/material.dart';
-import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
 
 import 'splash_screen.dart';
+
+import 'database_connection.dart'
+    if (dart.library.io) 'database_connection_native.dart'
+    if (dart.library.js_interop) 'database_connection_web.dart';
 
 late MyDatabase db;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  db = MyDatabase(_openConnection());
+  db = MyDatabase(openConnection());
   runApp(const MyApp());
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
-    return NativeDatabase(file);
-  });
 }
 
 class MyApp extends StatelessWidget {
