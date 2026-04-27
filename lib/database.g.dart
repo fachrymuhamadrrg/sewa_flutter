@@ -348,15 +348,272 @@ class AlatsCompanion extends UpdateCompanion<Alat> {
   }
 }
 
+class $SesssionsTable extends Sesssions
+    with TableInfo<$SesssionsTable, Sesssion> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SesssionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _usernameMeta = const VerificationMeta(
+    'username',
+  );
+  @override
+  late final GeneratedColumn<String> username = GeneratedColumn<String>(
+    'username',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _isLoggedInMeta = const VerificationMeta(
+    'isLoggedIn',
+  );
+  @override
+  late final GeneratedColumn<bool> isLoggedIn = GeneratedColumn<bool>(
+    'is_logged_in',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_logged_in" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, username, isLoggedIn];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sesssions';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Sesssion> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('username')) {
+      context.handle(
+        _usernameMeta,
+        username.isAcceptableOrUnknown(data['username']!, _usernameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_usernameMeta);
+    }
+    if (data.containsKey('is_logged_in')) {
+      context.handle(
+        _isLoggedInMeta,
+        isLoggedIn.isAcceptableOrUnknown(
+          data['is_logged_in']!,
+          _isLoggedInMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Sesssion map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Sesssion(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      username: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}username'],
+      )!,
+      isLoggedIn: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_logged_in'],
+      )!,
+    );
+  }
+
+  @override
+  $SesssionsTable createAlias(String alias) {
+    return $SesssionsTable(attachedDatabase, alias);
+  }
+}
+
+class Sesssion extends DataClass implements Insertable<Sesssion> {
+  final int id;
+  final String username;
+  final bool isLoggedIn;
+  const Sesssion({
+    required this.id,
+    required this.username,
+    required this.isLoggedIn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['username'] = Variable<String>(username);
+    map['is_logged_in'] = Variable<bool>(isLoggedIn);
+    return map;
+  }
+
+  SesssionsCompanion toCompanion(bool nullToAbsent) {
+    return SesssionsCompanion(
+      id: Value(id),
+      username: Value(username),
+      isLoggedIn: Value(isLoggedIn),
+    );
+  }
+
+  factory Sesssion.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Sesssion(
+      id: serializer.fromJson<int>(json['id']),
+      username: serializer.fromJson<String>(json['username']),
+      isLoggedIn: serializer.fromJson<bool>(json['isLoggedIn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'username': serializer.toJson<String>(username),
+      'isLoggedIn': serializer.toJson<bool>(isLoggedIn),
+    };
+  }
+
+  Sesssion copyWith({int? id, String? username, bool? isLoggedIn}) => Sesssion(
+    id: id ?? this.id,
+    username: username ?? this.username,
+    isLoggedIn: isLoggedIn ?? this.isLoggedIn,
+  );
+  Sesssion copyWithCompanion(SesssionsCompanion data) {
+    return Sesssion(
+      id: data.id.present ? data.id.value : this.id,
+      username: data.username.present ? data.username.value : this.username,
+      isLoggedIn: data.isLoggedIn.present
+          ? data.isLoggedIn.value
+          : this.isLoggedIn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Sesssion(')
+          ..write('id: $id, ')
+          ..write('username: $username, ')
+          ..write('isLoggedIn: $isLoggedIn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, username, isLoggedIn);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Sesssion &&
+          other.id == this.id &&
+          other.username == this.username &&
+          other.isLoggedIn == this.isLoggedIn);
+}
+
+class SesssionsCompanion extends UpdateCompanion<Sesssion> {
+  final Value<int> id;
+  final Value<String> username;
+  final Value<bool> isLoggedIn;
+  const SesssionsCompanion({
+    this.id = const Value.absent(),
+    this.username = const Value.absent(),
+    this.isLoggedIn = const Value.absent(),
+  });
+  SesssionsCompanion.insert({
+    this.id = const Value.absent(),
+    required String username,
+    this.isLoggedIn = const Value.absent(),
+  }) : username = Value(username);
+  static Insertable<Sesssion> custom({
+    Expression<int>? id,
+    Expression<String>? username,
+    Expression<bool>? isLoggedIn,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (username != null) 'username': username,
+      if (isLoggedIn != null) 'is_logged_in': isLoggedIn,
+    });
+  }
+
+  SesssionsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? username,
+    Value<bool>? isLoggedIn,
+  }) {
+    return SesssionsCompanion(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (username.present) {
+      map['username'] = Variable<String>(username.value);
+    }
+    if (isLoggedIn.present) {
+      map['is_logged_in'] = Variable<bool>(isLoggedIn.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SesssionsCompanion(')
+          ..write('id: $id, ')
+          ..write('username: $username, ')
+          ..write('isLoggedIn: $isLoggedIn')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$MyDatabase extends GeneratedDatabase {
   _$MyDatabase(QueryExecutor e) : super(e);
   $MyDatabaseManager get managers => $MyDatabaseManager(this);
   late final $AlatsTable alats = $AlatsTable(this);
+  late final $SesssionsTable sesssions = $SesssionsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [alats];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [alats, sesssions];
 }
 
 typedef $$AlatsTableCreateCompanionBuilder =
@@ -545,10 +802,164 @@ typedef $$AlatsTableProcessedTableManager =
       Alat,
       PrefetchHooks Function()
     >;
+typedef $$SesssionsTableCreateCompanionBuilder =
+    SesssionsCompanion Function({
+      Value<int> id,
+      required String username,
+      Value<bool> isLoggedIn,
+    });
+typedef $$SesssionsTableUpdateCompanionBuilder =
+    SesssionsCompanion Function({
+      Value<int> id,
+      Value<String> username,
+      Value<bool> isLoggedIn,
+    });
+
+class $$SesssionsTableFilterComposer
+    extends Composer<_$MyDatabase, $SesssionsTable> {
+  $$SesssionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get username => $composableBuilder(
+    column: $table.username,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isLoggedIn => $composableBuilder(
+    column: $table.isLoggedIn,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SesssionsTableOrderingComposer
+    extends Composer<_$MyDatabase, $SesssionsTable> {
+  $$SesssionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get username => $composableBuilder(
+    column: $table.username,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isLoggedIn => $composableBuilder(
+    column: $table.isLoggedIn,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SesssionsTableAnnotationComposer
+    extends Composer<_$MyDatabase, $SesssionsTable> {
+  $$SesssionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get username =>
+      $composableBuilder(column: $table.username, builder: (column) => column);
+
+  GeneratedColumn<bool> get isLoggedIn => $composableBuilder(
+    column: $table.isLoggedIn,
+    builder: (column) => column,
+  );
+}
+
+class $$SesssionsTableTableManager
+    extends
+        RootTableManager<
+          _$MyDatabase,
+          $SesssionsTable,
+          Sesssion,
+          $$SesssionsTableFilterComposer,
+          $$SesssionsTableOrderingComposer,
+          $$SesssionsTableAnnotationComposer,
+          $$SesssionsTableCreateCompanionBuilder,
+          $$SesssionsTableUpdateCompanionBuilder,
+          (Sesssion, BaseReferences<_$MyDatabase, $SesssionsTable, Sesssion>),
+          Sesssion,
+          PrefetchHooks Function()
+        > {
+  $$SesssionsTableTableManager(_$MyDatabase db, $SesssionsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SesssionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SesssionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SesssionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> username = const Value.absent(),
+                Value<bool> isLoggedIn = const Value.absent(),
+              }) => SesssionsCompanion(
+                id: id,
+                username: username,
+                isLoggedIn: isLoggedIn,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String username,
+                Value<bool> isLoggedIn = const Value.absent(),
+              }) => SesssionsCompanion.insert(
+                id: id,
+                username: username,
+                isLoggedIn: isLoggedIn,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SesssionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$MyDatabase,
+      $SesssionsTable,
+      Sesssion,
+      $$SesssionsTableFilterComposer,
+      $$SesssionsTableOrderingComposer,
+      $$SesssionsTableAnnotationComposer,
+      $$SesssionsTableCreateCompanionBuilder,
+      $$SesssionsTableUpdateCompanionBuilder,
+      (Sesssion, BaseReferences<_$MyDatabase, $SesssionsTable, Sesssion>),
+      Sesssion,
+      PrefetchHooks Function()
+    >;
 
 class $MyDatabaseManager {
   final _$MyDatabase _db;
   $MyDatabaseManager(this._db);
   $$AlatsTableTableManager get alats =>
       $$AlatsTableTableManager(_db, _db.alats);
+  $$SesssionsTableTableManager get sesssions =>
+      $$SesssionsTableTableManager(_db, _db.sesssions);
 }

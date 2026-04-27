@@ -10,10 +10,16 @@ class Alats extends Table {
   TextColumn get imageUrl => text()();
 }
 
-@DriftDatabase(tables: [Alats])
+@DriftDatabase(tables: [Alats, Sesssions])
 class MyDatabase extends _$MyDatabase {
   MyDatabase(QueryExecutor e) : super(e);
 
   @override
   int get schemaVersion => 1;
+}
+
+class Sesssions extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get username => text()();
+  BoolColumn get isLoggedIn => boolean().withDefault(const Constant(true))();
 }
