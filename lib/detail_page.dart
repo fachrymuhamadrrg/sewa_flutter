@@ -161,17 +161,23 @@ class DetailPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                // (Opsional) Jika kamu masih ingin menyimpan data ke database lokal / favorit
-                await db
-                    .into(db.alats)
-                    .insert(
-                      AlatsCompanion.insert(
-                        name: name,
-                        price: price,
-                        location: loc,
-                        imageUrl: imgUrl,
-                      ),
-                    );
+                // Menggunakan try-catch agar jika database gagal (terutama di Chrome/Web),
+                // navigasi ke halaman Checkout tetap berjalan.
+                try {
+                  await db
+                      .into(db.alats)
+                      .insert(
+                        AlatsCompanion.insert(
+                          name: name,
+                          price: price,
+                          location: loc,
+                          imageUrl: imgUrl,
+                        ),
+                      );
+                } catch (e) {
+                  debugPrint("Gagal menyimpan ke database lokal: $e");
+                }
+
                 // Tambahkan kode navigasi ini untuk pindah ke halaman Checkout
                 if (context.mounted) {
                   Navigator.push(
