@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'database.dart';
 import 'main.dart';
+import 'checkout_page.dart';
 
 class DetailPage extends StatelessWidget {
   final String name;
@@ -160,7 +161,7 @@ class DetailPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                // EKSEKUSI DRIFT DI SINI
+                // (Opsional) Jika kamu masih ingin menyimpan data ke database lokal / favorit
                 await db
                     .into(db.alats)
                     .insert(
@@ -171,11 +172,16 @@ class DetailPage extends StatelessWidget {
                         imageUrl: imgUrl,
                       ),
                     );
-
+                // Tambahkan kode navigasi ini untuk pindah ke halaman Checkout
                 if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Alat berhasil ditambahkan ke favorit"),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CheckoutPage(
+                        items: [
+                          {'name': name, 'price': price, 'imageUrl': imgUrl},
+                        ],
+                      ),
                     ),
                   );
                 }
