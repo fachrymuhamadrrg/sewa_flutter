@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'success_page.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List<Map<String, String>> items;
@@ -107,16 +108,26 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         child: Column(
                           children: const [
                             Icon(Icons.edit, color: Colors.blue, size: 16),
-                            Text("Edit", style: TextStyle(color: Colors.blue, fontSize: 12)),
+                            Text(
+                              "Edit",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   const Text(
                     "Rumah Kedua ( +6281234567899 )\nJalan Bunga No 7, RT 02 RW 01\nKOTA BARU\nJAWA BARAT\nINDONESIA, 12345",
-                    style: TextStyle(color: Colors.black54, height: 1.5, fontSize: 13),
+                    style: TextStyle(
+                      color: Colors.black54,
+                      height: 1.5,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
@@ -170,7 +181,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 const SizedBox(height: 4),
                                 const Text(
                                   "Rental Item",
-                                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
+                                  ),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
@@ -187,14 +201,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     );
                   }),
-                  
+
                   const Divider(color: Color(0xFFF0F0F0), height: 24),
-                  
+
                   // Duration and Quantity Steppers
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Durasi (Hari)", style: TextStyle(fontWeight: FontWeight.w500)),
+                      const Text(
+                        "Durasi (Hari)",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       Row(
                         children: [
                           _buildStepperBtn(Icons.remove, () {
@@ -203,18 +220,29 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           Container(
                             width: 35,
                             alignment: Alignment.center,
-                            child: Text("$durasi", style: const TextStyle(fontWeight: FontWeight.bold)),
+                            child: Text(
+                              "$durasi",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                          _buildStepperBtn(Icons.add, () => setState(() => durasi++)),
+                          _buildStepperBtn(
+                            Icons.add,
+                            () => setState(() => durasi++),
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Jumlah Alat", style: TextStyle(fontWeight: FontWeight.w500)),
+                      const Text(
+                        "Jumlah Alat",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                       Row(
                         children: [
                           _buildStepperBtn(Icons.remove, () {
@@ -223,11 +251,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           Container(
                             width: 35,
                             alignment: Alignment.center,
-                            child: Text("$jumlah", style: const TextStyle(fontWeight: FontWeight.bold)),
+                            child: Text(
+                              "$jumlah",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                          _buildStepperBtn(Icons.add, () => setState(() => jumlah++)),
+                          _buildStepperBtn(
+                            Icons.add,
+                            () => setState(() => jumlah++),
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -236,11 +272,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
             const SizedBox(height: 16),
 
             // Shipping Options
-            _buildOptionTile(Icons.local_shipping, "Shipping Options", "Reguler"),
+            _buildOptionTile(
+              Icons.local_shipping,
+              "Shipping Options",
+              "Reguler",
+            ),
             const SizedBox(height: 16),
 
             // Vouchers
-            _buildOptionTile(Icons.confirmation_num, "Free Shipping up to Rp 30.000", null, iconColor: const Color(0xFFE5B942)),
+            _buildOptionTile(
+              Icons.confirmation_num,
+              "Free Shipping up to Rp 30.000",
+              null,
+              iconColor: const Color(0xFFE5B942),
+            ),
             const SizedBox(height: 16),
 
             // Payment Methods
@@ -262,14 +307,31 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      Text("Payment Methods", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
-                      Text("View more >", style: TextStyle(color: Colors.blue, fontSize: 13)),
+                      Text(
+                        "Pembayaran",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                        ),
+                      ),
+                      Text(
+                        "Selengakpnya >",
+                        style: TextStyle(color: Colors.blue, fontSize: 13),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  _buildPaymentMethodTile("MasterCard", 'assets/mastercard.png', isSelected: metodeBayar == 'MasterCard'),
+                  _buildPaymentMethodTile(
+                    "MasterCard",
+                    'assets/mastercard.png',
+                    isSelected: metodeBayar == 'MasterCard',
+                  ),
                   const Divider(color: Color(0xFFF0F0F0)),
-                  _buildPaymentMethodTile("PayPal", 'assets/paypal.png', isSelected: metodeBayar == 'PayPal'),
+                  _buildPaymentMethodTile(
+                    "PayPal",
+                    'assets/paypal.png',
+                    isSelected: metodeBayar == 'PayPal',
+                  ),
                 ],
               ),
             ),
@@ -295,9 +357,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   const SizedBox(height: 8),
                   _buildSummaryRow("Shipping", formatRupiah(shipping)),
                   const SizedBox(height: 8),
-                  _buildSummaryRow("Voucher Applied", "-${formatRupiah(voucherApplied.abs())}", valueColor: Colors.red),
+                  _buildSummaryRow(
+                    "Voucher Applied",
+                    "-${formatRupiah(voucherApplied.abs())}",
+                    valueColor: Colors.red,
+                  ),
                   const Divider(color: Color(0xFFF0F0F0), height: 24),
-                  _buildSummaryRow("TOTAL PAYMENT", formatRupiah(totalAkhir), isTotal: true),
+                  _buildSummaryRow(
+                    "Total Pembayaran",
+                    formatRupiah(totalAkhir),
+                    isTotal: true,
+                  ),
                 ],
               ),
             ),
@@ -317,7 +387,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                 ),
                 child: const Text(
-                  "Place Order",
+                  "Sewa Sekarang",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -347,7 +417,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildOptionTile(IconData icon, String title, String? trailingText, {Color? iconColor}) {
+  Widget _buildOptionTile(
+    IconData icon,
+    String title,
+    String? trailingText, {
+    Color? iconColor,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
@@ -372,7 +447,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
           ),
           if (trailingText != null) ...[
-            Text(trailingText, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+            Text(
+              trailingText,
+              style: const TextStyle(fontSize: 13, color: Colors.grey),
+            ),
             const SizedBox(width: 8),
           ],
           const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
@@ -381,7 +459,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildPaymentMethodTile(String name, String assetPath, {required bool isSelected}) {
+  Widget _buildPaymentMethodTile(
+    String name,
+    String assetPath, {
+    required bool isSelected,
+  }) {
     return InkWell(
       onTap: () => setState(() => metodeBayar = name),
       child: Padding(
@@ -395,7 +477,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Icon(Icons.credit_card, size: 16, color: Colors.grey),
+              child: const Icon(
+                Icons.credit_card,
+                size: 16,
+                color: Colors.grey,
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(child: Text(name, style: const TextStyle(fontSize: 14))),
@@ -409,7 +495,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildSummaryRow(String label, String value, {bool isTotal = false, Color? valueColor}) {
+  Widget _buildSummaryRow(
+    String label,
+    String value, {
+    bool isTotal = false,
+    Color? valueColor,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
