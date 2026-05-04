@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart'; // Sesuaikan jika nama file home Anda berbeda
+import 'history_page.dart';
 
 class SuccessPage extends StatelessWidget {
   const SuccessPage({super.key});
@@ -27,7 +28,24 @@ class SuccessPage extends StatelessWidget {
                   (route) => false,
                 );
               },
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(200, 45),
+              ),
               child: const Text("Kembali ke Beranda"),
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton(
+              onPressed: () {
+                // Pergi ke halaman Riwayat Transaksi
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HistoryPage()),
+                );
+              },
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size(200, 45),
+              ),
+              child: const Text("Lihat Riwayat Transaksi"),
             ),
           ],
         ),

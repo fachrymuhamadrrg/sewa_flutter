@@ -12,7 +12,7 @@ class Alats extends Table {
 
 @DriftDatabase(tables: [Alats, Sesssions])
 class MyDatabase extends _$MyDatabase {
-  MyDatabase(QueryExecutor e) : super(e);
+  MyDatabase(super.e);
 
   @override
   int get schemaVersion => 1;
