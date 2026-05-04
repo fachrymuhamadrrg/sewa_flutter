@@ -9,6 +9,9 @@ import 'database_connection.dart'
 
 late MyDatabase db;
 
+// VARIABEL GLOBAL UNTUK PENYIMPANAN SEMENTARA DI WEB
+ValueNotifier<List<Alat>> globalHistory = ValueNotifier([]);
+int globalNextId = 1;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   db = MyDatabase(openConnection());

@@ -56,14 +56,12 @@ class HistoryPage extends StatelessWidget {
   }
 
   Widget _buildActiveTab() {
-    return StreamBuilder<List<Alat>>(
-      stream: db.select(db.alats).watch(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+    return ValueListenableBuilder<List<Alat>>(
+      valueListenable: globalHistory,
+      builder: (context, listAlat, child) {
+        if (listAlat.isEmpty) {
+          return const Center(child: Text("Belum ada transaksi aktif"));
         }
-
-        final listAlat = snapshot.data ?? [];
 
         if (listAlat.isEmpty) {
           return const Center(child: Text("Belum ada transaksi aktif"));
@@ -177,10 +175,9 @@ class HistoryPage extends StatelessWidget {
                     ),
                     IconButton(
                       icon: const Icon(Icons.delete_outline, color: Colors.red),
-                      onPressed: () async {
-                        await (db.delete(
-                          db.alats,
-                        )..where((t) => t.id.equals(id))).go();
+                      onPressed: () {
+                        // Hapus dari global state
+                        globalHistory.value = globalHistory.value.where((a) => a.id != id).toList();
                       },
                     ),
                   ],

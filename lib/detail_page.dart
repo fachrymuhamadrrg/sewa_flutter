@@ -160,25 +160,9 @@ class DetailPage extends StatelessWidget {
               ],
             ),
             ElevatedButton(
-              onPressed: () async {
-                // Menggunakan try-catch agar jika database gagal (terutama di Chrome/Web),
-                // navigasi ke halaman Checkout tetap berjalan.
-                try {
-                  await db
-                      .into(db.alats)
-                      .insert(
-                        AlatsCompanion.insert(
-                          name: name,
-                          price: price,
-                          location: loc,
-                          imageUrl: imgUrl,
-                        ),
-                      );
-                } catch (e) {
-                  debugPrint("Gagal menyimpan ke database lokal: $e");
-                }
-
-                // Tambahkan kode navigasi ini untuk pindah ke halaman Checkout
+              onPressed: () {
+                // Langsung navigasi ke halaman Checkout tanpa insert database di sini
+                // (Insert akan dilakukan nanti saat menekan tombol Sewa Sekarang di checkout)
                 if (context.mounted) {
                   Navigator.push(
                     context,

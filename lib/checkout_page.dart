@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'success_page.dart';
+import 'database.dart';
+import 'main.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List<Map<String, String>> items;
@@ -379,6 +381,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
               height: 55,
               child: ElevatedButton(
                 onPressed: () {
+                  // Menyimpan data menggunakan variabel global (Kompabilitas Web)
+                  for (var item in widget.items) {
+                    globalHistory.value = [
+                      ...globalHistory.value,
+                      Alat(
+                        id: globalNextId++,
+                        name: item['name'] ?? 'Alat Sewa',
+                        price: item['price'] ?? '0',
+                        location: 'Jalan Bunga No 7',
+                        imageUrl: item['imageUrl'] ?? '',
+                      )
+                    ];
+                  }
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
