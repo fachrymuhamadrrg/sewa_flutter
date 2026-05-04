@@ -1,11 +1,11 @@
-import 'database.dart';
+import 'package:sewa_flutter/database/database.dart';
 import 'package:flutter/material.dart';
 
-import 'splash_screen.dart';
+import 'package:sewa_flutter/pages/splash_screen.dart';
 
-import 'database_connection.dart'
-    if (dart.library.io) 'database_connection_native.dart'
-    if (dart.library.js_interop) 'database_connection_web.dart';
+import 'package:sewa_flutter/database/database_connection.dart'
+    if (dart.library.io) 'package:sewa_flutter/database/database_connection_native.dart'
+    if (dart.library.js_interop) 'package:sewa_flutter/database/database_connection_web.dart';
 
 late MyDatabase db;
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'success_page.dart';
-import 'database.dart';
-import 'main.dart';
+import 'package:sewa_flutter/pages/success_page.dart';
+import 'package:sewa_flutter/database/database.dart';
+import 'package:sewa_flutter/main.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List<Map<String, String>> items;

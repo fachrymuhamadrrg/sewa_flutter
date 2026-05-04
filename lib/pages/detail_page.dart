@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'database.dart';
-import 'main.dart';
-import 'checkout_page.dart';
+import 'package:sewa_flutter/database/database.dart';
+import 'package:sewa_flutter/main.dart';
+import 'package:sewa_flutter/pages/checkout_page.dart';
 
 class DetailPage extends StatelessWidget {
   final String name;

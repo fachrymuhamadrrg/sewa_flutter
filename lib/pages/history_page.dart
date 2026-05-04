@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'database.dart';
-import 'main.dart';
+import 'package:sewa_flutter/database/database.dart';
+import 'package:sewa_flutter/main.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});

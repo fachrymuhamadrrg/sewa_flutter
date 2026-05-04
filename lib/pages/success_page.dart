@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart'; // Sesuaikan jika nama file home Anda berbeda
-import 'history_page.dart';
+import 'package:sewa_flutter/pages/home_page.dart'; // Sesuaikan jika nama file home Anda berbeda
+import 'package:sewa_flutter/pages/history_page.dart';
 
 class SuccessPage extends StatelessWidget {
   const SuccessPage({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'detail_page.dart';
-import 'account_page.dart';
-import 'history_page.dart';
+import 'package:sewa_flutter/pages/detail_page.dart';
+import 'package:sewa_flutter/pages/account_page.dart';
+import 'package:sewa_flutter/pages/history_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
