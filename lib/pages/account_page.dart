@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sewa_flutter/pages/edit_profil_page.dart';
+import 'package:sewa_flutter/pages/history_page.dart';
+import 'package:sewa_flutter/pages/login_page.dart';
+
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -118,19 +121,48 @@ class _AccountPageState extends State<AccountPage> {
 
               const SizedBox(height: 30),
 
-              _buildMenuSection([
-                _buildMenuItem(Icons.person_outline, "Detai Akun"),
-                _buildMenuItem(Icons.receipt_long_outlined, "Riwayat Pesanan"),
-                _buildMenuItem(Icons.favorite_border, "Favorit"),
+                            _buildMenuSection([
+                _buildMenuItem(Icons.person_outline, "Detai Akun", () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditProfilePage(),
+                    ),
+                  ).then((value) {
+                    _loadData();
+                  });
+                }),
+                _buildMenuItem(Icons.receipt_long_outlined, "Riwayat Pesanan", () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HistoryPage(),
+                    ),
+                  );
+                }),
+                _buildMenuItem(Icons.favorite_border, "Favorit", () {}),
               ]),
 
               const SizedBox(height: 20),
 
               _buildMenuSection([
-                _buildMenuItem(Icons.payment_outlined, "Dompet Digital"),
-                _buildMenuItem(Icons.help_outline, "Pusat Bantuan"),
-                _buildMenuItem(Icons.logout, "Keluar"),
+                _buildMenuItem(Icons.payment_outlined, "Dompet Digital", () {}),
+                _buildMenuItem(Icons.help_outline, "Pusat Bantuan", () {}),
+                _buildMenuItem(Icons.logout, "Keluar", () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.clear();
+                  if (mounted) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                      (route) => false,
+                    );
+                  }
+                }),
               ]),
+
               const SizedBox(height: 40),
             ],
           ),
@@ -173,7 +205,7 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String title) {
+    Widget _buildMenuItem(IconData icon, String title, VoidCallback onTap) {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
@@ -188,7 +220,8 @@ class _AccountPageState extends State<AccountPage> {
         style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
       ),
       trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-      onTap: () {},
+      onTap: onTap,
     );
   }
+
 }
